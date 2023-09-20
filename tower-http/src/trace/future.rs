@@ -58,14 +58,14 @@ where
         let mut on_failure = this.on_failure.take().unwrap();
 
         match result {
-            Ok(res) => {
+            Ok(mut res) => {
                 let classification = classifier.classify_response(&res);
                 let start = *this.start;
 
                 this.on_response
                     .take()
                     .unwrap()
-                    .on_response(&res, latency, this.span);
+                    .on_response(&mut res, latency, this.span);
 
                 match classification {
                     ClassifiedResponse::Ready(classification) => {
